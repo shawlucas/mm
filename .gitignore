@@ -19,7 +19,6 @@ archive/
 build/
 baserom/
 decomp/
-asm/
 expected/
 nonmatchings/
 
