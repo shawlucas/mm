@@ -2641,7 +2641,7 @@
     0x801390A8:("Matrix_MakeIdentity",),
     0x80139100:("Matrix_Copy",),
     0x80139188:("Matrix_Invert",),
-    0x80139428:("Matrix_MakeScale",),
+    0x80139428:("SkinMatrix_SetScale",),
     0x8013948C:("SkinMatrix_SetRotateRPY",),
     0x8013961C:("Matrix_MakeRotationYXZ",),
     0x801397AC:("SkinMatrix_SetTranslate",),

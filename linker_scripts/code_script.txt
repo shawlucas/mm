@@ -601,7 +601,7 @@ SECTIONS
         build/asm/code/code_rodata_0x80179300.o(.rodata)
         build/asm/code/code_rodata_0x801795F0.o(.rodata)
         build/asm/code/code_rodata_0x8017FEB0.o(.rodata)
-        build/asm/code/code_rodata_sys_matrix.o(.rodata)
+        build/src/code/sys_matrix.o(.rodata)
         build/asm/code/code_rodata_0x801830A0.o(.rodata)
         build/asm/code/code_rodata_sys_flashrom.o(.rodata)
         build/asm/code/code_rodata_0x801877D0.o(.rodata)
