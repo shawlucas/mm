@@ -63,7 +63,7 @@ void ActorShadow_Draw(Actor* actor, Lights* lights, GlobalContext* globalCtx, Gf
             Matrix_Put(&mtx);
 
             if (dlist != D_04076BC0) {
-                Matrix_RotateY((f32)actor->shape.rot.y * (M_PI / 32768), MTXMODE_APPLY);
+                Matrix_RotateY_S((f32)actor->shape.rot.y * (M_PI / 32768), MTXMODE_APPLY);
             }
 
             shadowScale =  1.0f - (dy * D_801DCA14);
@@ -126,7 +126,7 @@ void func_800B40E0(GlobalContext* globalCtx, Light* light, MtxF* arg2, s32 arg3,
     arg6 *= (4.5f - (light->l.dir[1] * D_801DCA1C));
     arg6 = (arg6 < 1.0f) ? 1.0f : arg6;
     Matrix_Put(arg2);
-    Matrix_RotateY(sp58, MTXMODE_APPLY);
+    Matrix_RotateY_S(sp58, MTXMODE_APPLY);
     Matrix_Scale(arg5, 1.0f, arg5 * arg6, MTXMODE_APPLY);
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx),

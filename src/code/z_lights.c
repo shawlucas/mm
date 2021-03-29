@@ -423,7 +423,7 @@ void Lights_DrawGlow(GlobalContext* globalCtx) {
 
                     gDPSetPrimColor(dl++, 0, 0, params->color[0], params->color[1], params->color[2], 50);
 
-                    SysMatrix_InsertTranslation(params->x, params->y, params->z, 0);
+                    Matrix_Translate(params->x, params->y, params->z, 0);
                     Matrix_Scale(scale,scale,scale, MTXMODE_APPLY);
 
                     gSPMatrix(dl++, Matrix_NewMtx(globalCtx->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

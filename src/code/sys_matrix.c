@@ -18,69 +18,71 @@ void Matrix_Pop(void) {
     sCurrentMatrix--;
 }
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_CopyCurrentState.asm")
+void Matrix_Get(MtxF* dest) {
+    Matrix_MtxFCopy(dest, sCurrentMatrix);
+}
 
 #pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_Put.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_GetCurrentState.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_GetCurrent.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertMatrix.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_Mult.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertTranslation.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_Translate.asm")
 
 #pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_Scale.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertXRotation_s.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateX_S.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertXRotation_f.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateX_F.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_RotateStateAroundXAxis.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateStateAroundXAxis.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_SetStateXRotation.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_SetStateXRotation.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateY.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateY_S.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertYRotation_f.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateY_F.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertZRotation_s.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateZ_S.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertZRotation_f.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateZ_F.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_InsertRotation.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_RotateRPY.asm")
 
 #pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_JointPosition.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_SetStateRotationAndTranslation.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_SetStateRotationAndTranslation.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_ToRSPMatrix.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_MtxFToMtx.asm")
 
 #pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_ToMtx.asm")
 
 #pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_NewMtx.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_AppendToPolyOpaDisp.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_MtxFToNewMtx.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_MultiplyVector3fByState.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_MultVec3f.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_GetStateTranslation.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_GetStateTranslation.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_GetStateTranslationAndScaledX.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_GetStateTranslationAndScaledX.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_GetStateTranslationAndScaledY.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_GetStateTranslationAndScaledY.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_GetStateTranslationAndScaledZ.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_GetStateTranslationAndScaledZ.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_MultiplyVector3fXZByCurrentState.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_MultVec3fXZByCurrentState.asm")
 
 #pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_MtxFCopy.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_FromRSPMatrix.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_MtxToMtxF.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_MultiplyVector3fByMatrix.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_MultVec3fExt.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_TransposeXYZ.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_Reverse.asm")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/SysMatrix_NormalizeXYZ.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/Matrix_NormalizeXYZ.asm")
 
 #pragma GLOBAL_ASM("./asm/non_matchings/code/sys_matrix/func_8018219C.asm")
 
