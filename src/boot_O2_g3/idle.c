@@ -4,7 +4,7 @@
 u8 D_80096B20 = 1;
 vu8 gViConfigUseDefault = 1;
 u8 gViConfigAdditionalScanLines = 0;
-u32 gViConfigFeatures = 0x42;
+u32 gViConfigFeatures = OS_VI_DITHER_FILTER_ON | OS_VI_GAMMA_OFF;
 f32 gViConfigXScale = 1.0f;
 f32 gViConfigYScale = 1.0f;
 
@@ -36,7 +36,7 @@ void Idle_InitMemory(void) {
 
     Idle_ClearMemory((void*)0x80000400, &gFramebuffer1);
     Idle_ClearMemory(&D_80025D00, (int*)&_bootSegmentStart);
-    Idle_ClearMemory(&_bootSegmentEnd, memEnd);
+    Idle_ClearMemory(&_codeSegmentEnd, memEnd);
 }
 
 #ifdef NON_MATCHING
