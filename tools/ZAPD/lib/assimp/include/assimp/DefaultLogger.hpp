@@ -56,7 +56,7 @@ class IOStream;
 struct LogStreamInfo;
 
 /** default name of logfile */
-#define ASSIMP_DEFAULT_LOG_NAME "AssimpLog.txt"
+#define ASSIMP_DEosSyncPrintf_NAME "AssimpLog.txt"
 
 // ------------------------------------------------------------------------------------
 /** @brief CPP-API: Primary logging facility of Assimp.
@@ -88,7 +88,7 @@ public:
      *  @param  io IOSystem to be used to open external files (such as the
      *   log file). Pass NULL to rely on the default implementation.
      *  This replaces the default #NullLogger with a #DefaultLogger instance. */
-    static Logger *create(const char* name = ASSIMP_DEFAULT_LOG_NAME,
+    static Logger *create(const char* name = ASSIMP_DEosSyncPrintf_NAME,
         LogSeverity severity    = NORMAL,
         unsigned int defStreams = aiDefaultLogStream_DEBUGGER | aiDefaultLogStream_FILE,
         IOSystem* io            = NULL);

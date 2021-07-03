@@ -70,7 +70,7 @@ end:
     osSetIntMask(mask);
 
     if (alreadyExists) {
-        Fault_Log(VT_COL(RED, WHITE) "fault_AddClient: %08x は既にリスト中にある\n" VT_RST, client);
+        osSyncPrintf(VT_COL(RED, WHITE) "fault_AddClient: %08x は既にリスト中にある\n" VT_RST, client);
     }
 }
 
@@ -108,7 +108,7 @@ void Fault_RemoveClient(FaultClient* client) {
     osSetIntMask(mask);
 
     if (listIsEmpty) {
-        Fault_Log(VT_COL(RED, WHITE) "fault_RemoveClient: %08x リスト不整合です\n" VT_RST, client);
+        osSyncPrintf(VT_COL(RED, WHITE) "fault_RemoveClient: %08x リスト不整合です\n" VT_RST, client);
     }
 }
 
@@ -138,7 +138,7 @@ end:
     osSetIntMask(mask);
 
     if (alreadyExists) {
-        Fault_Log(VT_COL(RED, WHITE) "fault_AddressConverterAddClient: %08x は既にリスト中にある\n" VT_RST, client);
+        osSyncPrintf(VT_COL(RED, WHITE) "fault_AddressConverterAddClient: %08x は既にリスト中にある\n" VT_RST, client);
     }
 }
 
@@ -176,7 +176,7 @@ void Fault_RemoveAddrConvClient(FaultAddrConvClient* client) {
     osSetIntMask(mask);
 
     if (listIsEmpty) {
-        Fault_Log(VT_COL(RED, WHITE) "fault_AddressConverterRemoveClient: %08x は既にリスト中にある\n" VT_RST, client);
+        osSyncPrintf(VT_COL(RED, WHITE) "fault_AddressConverterRemoveClient: %08x は既にリスト中にある\n" VT_RST, client);
     }
 }
 
@@ -285,14 +285,14 @@ void Fault_PrintFReg(s32 idx, f32* value) {
     }
 }
 
-void Fault_LogFReg(s32 idx, f32* value) {
+void osSyncPrintfFReg(s32 idx, f32* value) {
     u32 raw = *(u32*)value;
     s32 v0 = ((raw & 0x7F800000) >> 0x17) - 0x7F;
 
     if ((v0 >= -0x7E && v0 < 0x80) || raw == 0) {
-        Fault_Log("F%02d:%14.7e ", idx, *value);
+        osSyncPrintf("F%02d:%14.7e ", idx, *value);
     } else {
-        Fault_Log("F%02d:  %08x(16) ", idx, *(u32*)value);
+        osSyncPrintf("F%02d:  %08x(16) ", idx, *(u32*)value);
     }
 }
 
@@ -311,14 +311,14 @@ void Fault_PrintFPCR(u32 value) {
     FaultDrawer_Printf("\n");
 }
 
-void Fault_LogFPCR(u32 value) {
+void osSyncPrintfFPCR(u32 value) {
     s32 i;
     u32 flag = 0x20000;
 
-    Fault_Log("FPCSR:%08xH  ", value);
+    osSyncPrintf("FPCSR:%08xH  ", value);
     for (i = 0; i < ARRAY_COUNT(sFpuExceptions); i++) {
         if (value & flag) {
-            Fault_Log("(%s)\n", sFpuExceptions[i]);
+            osSyncPrintf("(%s)\n", sFpuExceptions[i]);
             break;
         }
         flag >>= 1;
@@ -388,7 +388,7 @@ void Fault_PrintThreadContext(OSThread* t) {
     }
 }
 
-void Fault_LogThreadContext(OSThread* t) {
+void osSyncPrintfThreadContext(OSThread* t) {
     __OSThreadContext* ctx;
     s32 causeStrIdx = (s32)((((u32)t->context.cause >> 2) & 0x1f) << 0x10) >> 0x10;
     if (causeStrIdx == 0x17) {
@@ -399,47 +399,47 @@ void Fault_LogThreadContext(OSThread* t) {
     }
 
     ctx = &t->context;
-    Fault_Log("\n");
-    Fault_Log("THREAD ID:%d (%d:%s)\n", t->id, causeStrIdx, sCpuExceptions[causeStrIdx]);
+    osSyncPrintf("\n");
+    osSyncPrintf("THREAD ID:%d (%d:%s)\n", t->id, causeStrIdx, sCpuExceptions[causeStrIdx]);
 
-    Fault_Log("PC:%08xH   SR:%08xH   VA:%08xH\n", (u32)ctx->pc, (u32)ctx->sr, (u32)ctx->badvaddr);
-    Fault_Log("AT:%08xH   V0:%08xH   V1:%08xH\n", (u32)ctx->at, (u32)ctx->v0, (u32)ctx->v1);
-    Fault_Log("A0:%08xH   A1:%08xH   A2:%08xH\n", (u32)ctx->a0, (u32)ctx->a1, (u32)ctx->a2);
-    Fault_Log("A3:%08xH   T0:%08xH   T1:%08xH\n", (u32)ctx->a3, (u32)ctx->t0, (u32)ctx->t1);
-    Fault_Log("T2:%08xH   T3:%08xH   T4:%08xH\n", (u32)ctx->t2, (u32)ctx->t3, (u32)ctx->t4);
-    Fault_Log("T5:%08xH   T6:%08xH   T7:%08xH\n", (u32)ctx->t5, (u32)ctx->t6, (u32)ctx->t7);
-    Fault_Log("S0:%08xH   S1:%08xH   S2:%08xH\n", (u32)ctx->s0, (u32)ctx->s1, (u32)ctx->s2);
-    Fault_Log("S3:%08xH   S4:%08xH   S5:%08xH\n", (u32)ctx->s3, (u32)ctx->s4, (u32)ctx->s5);
-    Fault_Log("S6:%08xH   S7:%08xH   T8:%08xH\n", (u32)ctx->s6, (u32)ctx->s7, (u32)ctx->t8);
-    Fault_Log("T9:%08xH   GP:%08xH   SP:%08xH\n", (u32)ctx->t9, (u32)ctx->gp, (u32)ctx->sp);
-    Fault_Log("S8:%08xH   RA:%08xH   LO:%08xH\n", (u32)ctx->s8, (u32)ctx->ra, (u32)ctx->lo);
-    Fault_Log("\n");
-    Fault_LogFPCR(ctx->fpcsr);
-    Fault_Log("\n");
-    Fault_LogFReg(0, &ctx->fp0.f.f_even);
-    Fault_LogFReg(2, &ctx->fp2.f.f_even);
-    Fault_Log("\n");
-    Fault_LogFReg(4, &ctx->fp4.f.f_even);
-    Fault_LogFReg(6, &ctx->fp6.f.f_even);
-    Fault_Log("\n");
-    Fault_LogFReg(8, &ctx->fp8.f.f_even);
-    Fault_LogFReg(0xa, &ctx->fp10.f.f_even);
-    Fault_Log("\n");
-    Fault_LogFReg(0xc, &ctx->fp12.f.f_even);
-    Fault_LogFReg(0xe, &ctx->fp14.f.f_even);
-    Fault_Log("\n");
-    Fault_LogFReg(0x10, &ctx->fp16.f.f_even);
-    Fault_LogFReg(0x12, &ctx->fp18.f.f_even);
-    Fault_Log("\n");
-    Fault_LogFReg(0x14, &ctx->fp20.f.f_even);
-    Fault_LogFReg(0x16, &ctx->fp22.f.f_even);
-    Fault_Log("\n");
-    Fault_LogFReg(0x18, &ctx->fp24.f.f_even);
-    Fault_LogFReg(0x1a, &ctx->fp26.f.f_even);
-    Fault_Log("\n");
-    Fault_LogFReg(0x1c, &ctx->fp28.f.f_even);
-    Fault_LogFReg(0x1e, &ctx->fp30.f.f_even);
-    Fault_Log("\n");
+    osSyncPrintf("PC:%08xH   SR:%08xH   VA:%08xH\n", (u32)ctx->pc, (u32)ctx->sr, (u32)ctx->badvaddr);
+    osSyncPrintf("AT:%08xH   V0:%08xH   V1:%08xH\n", (u32)ctx->at, (u32)ctx->v0, (u32)ctx->v1);
+    osSyncPrintf("A0:%08xH   A1:%08xH   A2:%08xH\n", (u32)ctx->a0, (u32)ctx->a1, (u32)ctx->a2);
+    osSyncPrintf("A3:%08xH   T0:%08xH   T1:%08xH\n", (u32)ctx->a3, (u32)ctx->t0, (u32)ctx->t1);
+    osSyncPrintf("T2:%08xH   T3:%08xH   T4:%08xH\n", (u32)ctx->t2, (u32)ctx->t3, (u32)ctx->t4);
+    osSyncPrintf("T5:%08xH   T6:%08xH   T7:%08xH\n", (u32)ctx->t5, (u32)ctx->t6, (u32)ctx->t7);
+    osSyncPrintf("S0:%08xH   S1:%08xH   S2:%08xH\n", (u32)ctx->s0, (u32)ctx->s1, (u32)ctx->s2);
+    osSyncPrintf("S3:%08xH   S4:%08xH   S5:%08xH\n", (u32)ctx->s3, (u32)ctx->s4, (u32)ctx->s5);
+    osSyncPrintf("S6:%08xH   S7:%08xH   T8:%08xH\n", (u32)ctx->s6, (u32)ctx->s7, (u32)ctx->t8);
+    osSyncPrintf("T9:%08xH   GP:%08xH   SP:%08xH\n", (u32)ctx->t9, (u32)ctx->gp, (u32)ctx->sp);
+    osSyncPrintf("S8:%08xH   RA:%08xH   LO:%08xH\n", (u32)ctx->s8, (u32)ctx->ra, (u32)ctx->lo);
+    osSyncPrintf("\n");
+    osSyncPrintfFPCR(ctx->fpcsr);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(0, &ctx->fp0.f.f_even);
+    osSyncPrintfFReg(2, &ctx->fp2.f.f_even);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(4, &ctx->fp4.f.f_even);
+    osSyncPrintfFReg(6, &ctx->fp6.f.f_even);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(8, &ctx->fp8.f.f_even);
+    osSyncPrintfFReg(0xa, &ctx->fp10.f.f_even);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(0xc, &ctx->fp12.f.f_even);
+    osSyncPrintfFReg(0xe, &ctx->fp14.f.f_even);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(0x10, &ctx->fp16.f.f_even);
+    osSyncPrintfFReg(0x12, &ctx->fp18.f.f_even);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(0x14, &ctx->fp20.f.f_even);
+    osSyncPrintfFReg(0x16, &ctx->fp22.f.f_even);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(0x18, &ctx->fp24.f.f_even);
+    osSyncPrintfFReg(0x1a, &ctx->fp26.f.f_even);
+    osSyncPrintf("\n");
+    osSyncPrintfFReg(0x1c, &ctx->fp28.f.f_even);
+    osSyncPrintfFReg(0x1e, &ctx->fp30.f.f_even);
+    osSyncPrintf("\n");
 }
 
 OSThread* Fault_FindFaultedThread() {
@@ -640,7 +640,7 @@ void Fault_FindNextStackCall(u32** sp, u32** pc, u32** ra) {
     *ra = currentRa;
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/fault/Fault_FindNextStackCall.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/boot/fault/Fault_FindNextStackCall.s")
 #endif
 
 void Fault_DrawStackTrace(OSThread* t, u32 flags) {
@@ -675,7 +675,7 @@ void Fault_DrawStackTrace(OSThread* t, u32 flags) {
     }
 }
 
-void Fault_LogStackTrace(OSThread* t, u32 flags) {
+void osSyncPrintfStackTrace(OSThread* t, u32 flags) {
     s32 y;
     u32 sp;
     u32 ra;
@@ -686,21 +686,21 @@ void Fault_LogStackTrace(OSThread* t, u32 flags) {
     ra = t->context.ra;
     pc = t->context.pc;
 
-    Fault_Log("STACK TRACE");
-    Fault_Log("SP       PC       (VPC)\n");
+    osSyncPrintf("STACK TRACE");
+    osSyncPrintf("SP       PC       (VPC)\n");
 
     for (y = 1; (y < 22) && (((ra != 0) || (sp != 0)) && (pc != (u32)__osCleanupThread)); y++) {
-        Fault_Log("%08x %08x", sp, pc);
+        osSyncPrintf("%08x %08x", sp, pc);
 
         if (flags & 1) {
             convertedPc = (u32)Fault_ConvertAddress((void*)pc);
             if (convertedPc != 0) {
-                Fault_Log(" -> %08x", convertedPc);
+                osSyncPrintf(" -> %08x", convertedPc);
             }
         } else {
-            Fault_Log(" -> ????????");
+            osSyncPrintf(" -> ????????");
         }
-        Fault_Log("\n");
+        osSyncPrintf("\n");
 
         Fault_FindNextStackCall((u32**)&sp, (u32**)&pc, (u32**)&ra);
     }
@@ -781,7 +781,7 @@ void Fault_SetOptionsFromController3(void) {
             FaultDrawer_SetOsSyncPrintfEnabled(faultCopyToLog);
         }
         if (CHECK_BTN_ALL(input3->press.button, BTN_A)) {
-              Fault_Log("GRAPH PC=%08x RA=%08x STACK=%08x\n", graphPC, graphRA, graphSP);
+              osSyncPrintf("GRAPH PC=%08x RA=%08x STACK=%08x\n", graphPC, graphRA, graphSP);
         }
         if (CHECK_BTN_ALL(input3->press.button, BTN_B)) {
               FaultDrawer_SetDrawerFB(osViGetNextFramebuffer(), 0x140, 0xF0);
@@ -794,7 +794,7 @@ void Fault_SetOptionsFromController3(void) {
 #else
 const char D_80098A44[] = "GRAPH PC=%08x RA=%08x STACK=%08x\n";
 const char D_80098A68[] = "GRAPH PC %08x RA %08x SP %08x";
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/fault/Fault_SetOptionsFromController3.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/boot/fault/Fault_SetOptionsFromController3.s")
 #endif
 
 void Fault_SetOptions(void) {
@@ -815,24 +815,24 @@ void Fault_ThreadEntry(void* arg) {
 
             if (msg == (OSMesg)1) {
                 sFaultContext->msgId = 1;
-                Fault_Log("フォルトマネージャ:OS_EVENT_CPU_BREAKを受信しました\n");
+                osSyncPrintf("フォルトマネージャ:OS_EVENT_CPU_BREAKを受信しました\n");
             } else if (msg == (OSMesg)2) {
                 sFaultContext->msgId = 2;
-                Fault_Log("フォルトマネージャ:OS_EVENT_FAULTを受信しました\n");
+                osSyncPrintf("フォルトマネージャ:OS_EVENT_FAULTを受信しました\n");
             } else if (msg == (OSMesg)3) {
                 Fault_SetOptions();
                 faultedThread = NULL;
                 continue;
             } else {
                 sFaultContext->msgId = 3;
-                Fault_Log("フォルトマネージャ:不明なメッセージを受信しました\n");
+                osSyncPrintf("フォルトマネージャ:不明なメッセージを受信しました\n");
             }
 
             faultedThread = __osGetCurrFaultedThread();
-            Fault_Log("__osGetCurrFaultedThread()=%08x\n", faultedThread);
+            osSyncPrintf("__osGetCurrFaultedThread()=%08x\n", faultedThread);
             if (!faultedThread) {
                 faultedThread = Fault_FindFaultedThread();
-                Fault_Log("FindFaultedThread()=%08x\n", faultedThread);
+                osSyncPrintf("FindFaultedThread()=%08x\n", faultedThread);
             }
         } while (faultedThread == NULL);
 
@@ -857,15 +857,15 @@ void Fault_ThreadEntry(void* arg) {
 
         do {
             Fault_PrintThreadContext(faultedThread);
-            Fault_LogThreadContext(faultedThread);
+            osSyncPrintfThreadContext(faultedThread);
             Fault_WaitForInput();
             Fault_DrawStackTrace(faultedThread, 0);
-            Fault_LogStackTrace(faultedThread, 0);
+            osSyncPrintfStackTrace(faultedThread, 0);
             Fault_WaitForInput();
             Fault_ProcessClients();
             Fault_DrawMemDump((u32)(faultedThread->context.pc - 0x100), (u32)faultedThread->context.sp, 0, 0);
             Fault_DrawStackTrace(faultedThread, 1);
-            Fault_LogStackTrace(faultedThread, 1);
+            osSyncPrintfStackTrace(faultedThread, 1);
             Fault_WaitForInput();
             Fault_FillScreenRed();
             FaultDrawer_DrawText(0x40, 0x50, "    CONGRATURATIONS!    ");
@@ -911,9 +911,9 @@ void Fault_Start(void) {
 }
 
 void Fault_HangupFaultClient(const char* arg0, char* arg1) {
-    Fault_Log("HungUp on Thread %d\n", osGetThreadId(NULL));
-    Fault_Log("%s\n", arg0 ? arg0 : "(NULL)");
-    Fault_Log("%s\n", arg1 ? arg1 : "(NULL)");
+    osSyncPrintf("HungUp on Thread %d\n", osGetThreadId(NULL));
+    osSyncPrintf("%s\n", arg0 ? arg0 : "(NULL)");
+    osSyncPrintf("%s\n", arg1 ? arg1 : "(NULL)");
     FaultDrawer_Printf("HungUp on Thread %d\n", osGetThreadId(NULL));
     FaultDrawer_Printf("%s\n", arg0 ? arg0 : "(NULL)");
     FaultDrawer_Printf("%s\n", arg1 ? arg1 : "(NULL)");

@@ -1393,7 +1393,7 @@ void CollisionCheck_BlueBlood(GlobalContext* globalCtx, Collider* collider, Vec3
     Effect_Add(globalCtx, &effectIndex, 0, 0, 1, &D_801EEC00);
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_collision_check/CollisionCheck_BlueBlood.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_collision_check/CollisionCheck_BlueBlood.s")
 #endif
 
 /**
@@ -1450,7 +1450,7 @@ void CollisionCheck_GreenBlood(GlobalContext* globalCtx, Collider* collider, Vec
     Effect_Add(globalCtx, &effectIndex, 0, 0, 1, &D_801EF0C8);
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_collision_check/CollisionCheck_GreenBlood.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_collision_check/CollisionCheck_GreenBlood.s")
 #endif
 
 /**
@@ -3664,7 +3664,7 @@ void Collider_UpdateSpheres(s32 limb, ColliderJntSph* collider) {
     }
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_collision_check/Collider_UpdateSpheres.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_collision_check/Collider_UpdateSpheres.s")
 #endif
 
 /**
@@ -3704,7 +3704,7 @@ void Collider_UpdateSphere(s32 limb, ColliderSphere* collider) {
     }
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_collision_check/Collider_UpdateSphere.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_collision_check/Collider_UpdateSphere.s")
 #endif
 
 /**
@@ -3762,7 +3762,7 @@ void CollisionCheck_SpawnRedBlood(GlobalContext* globalCtx, Vec3f* v) {
     Effect_Add(globalCtx, &effectIndex, 0, 0, 1, &D_801EE200);
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_collision_check/CollisionCheck_SpawnRedBlood.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_collision_check/CollisionCheck_SpawnRedBlood.s")
 #endif
 
 /**
@@ -3820,7 +3820,7 @@ void CollisionCheck_SpawnWaterDroplets(GlobalContext* globalCtx, Vec3f* v) {
     Effect_Add(globalCtx, &effectIndex, 0, 0, 1, &D_801EE738);
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_collision_check/CollisionCheck_SpawnWaterDroplets.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_collision_check/CollisionCheck_SpawnWaterDroplets.s")
 #endif
 
 /**

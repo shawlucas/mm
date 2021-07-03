@@ -14,9 +14,9 @@ const ActorInit Obj_Funen_InitVars = {
     OBJECT_FUNEN,
     sizeof(ObjFunen),
     (ActorFunc)ObjFunen_Init,
-    (ActorFunc)func_800BDFB0,
-    (ActorFunc)func_800BDFB0,
-    (ActorFunc)ObjFunen_Draw,
+    (ActorFunc)Actor_NoOp,
+    (ActorFunc)Actor_NoOp,
+    (ActorFunc)ObjFunen_Draw
 };
 
 extern Gfx D_060000D0[];

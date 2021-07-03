@@ -104,7 +104,7 @@ void FaultDrawer_DrawRecImpl(s32 xStart, s32 yStart, s32 xEnd, s32 yEnd, u16 col
     }
 }
 
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/fault_drawer/FaultDrawer_DrawChar.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/boot/fault_drawer/FaultDrawer_DrawChar.s")
 
 s32 FaultDrawer_ColorToPrintColor(u16 color) {
     s32 i;
@@ -121,14 +121,14 @@ void FaultDrawer_UpdatePrintColor() {
     s32 idx;
 
     if (sFaultDrawContext->osSyncPrintfEnabled) {
-        Fault_Log(VT_RST);
+        osSyncPrintf(VT_RST);
         idx = FaultDrawer_ColorToPrintColor(sFaultDrawContext->foreColor);
         if (idx >= 0 && idx < 8) {
-            Fault_Log(VT_SGR("3%d"), idx);
+            osSyncPrintf(VT_SGR("3%d"), idx);
         }
         idx = FaultDrawer_ColorToPrintColor(sFaultDrawContext->backColor);
         if (idx >= 0 && idx < 8) {
-            Fault_Log(VT_SGR("4%d"), idx);
+            osSyncPrintf(VT_SGR("4%d"), idx);
         }
     }
 }
@@ -154,7 +154,7 @@ void FaultDrawer_SetCharPad(s8 padW, s8 padH) {
 
 void FaultDrawer_SetCursor(s32 x, s32 y) {
     if (sFaultDrawContext->osSyncPrintfEnabled) {
-        Fault_Log(VT_CUP("%d", "%d"), (y - sFaultDrawContext->yStart) / (sFaultDrawContext->charH + sFaultDrawContext->charHPad), 
+        osSyncPrintf(VT_CUP("%d", "%d"), (y - sFaultDrawContext->yStart) / (sFaultDrawContext->charH + sFaultDrawContext->charHPad), 
                                       (x - sFaultDrawContext->xStart) / (sFaultDrawContext->charW + sFaultDrawContext->charWPad));
     }
     sFaultDrawContext->cursorX = x;
@@ -163,7 +163,7 @@ void FaultDrawer_SetCursor(s32 x, s32 y) {
 
 void FaultDrawer_FillScreen() {
     if (sFaultDrawContext->osSyncPrintfEnabled) {
-        Fault_Log(VT_CLS);
+        osSyncPrintf(VT_CLS);
     }
 
     FaultDrawer_DrawRecImpl(sFaultDrawContext->xStart, sFaultDrawContext->yStart, sFaultDrawContext->xEnd,
@@ -175,7 +175,7 @@ const char D_80099078[] = "\n";
 const char D_8009907C[] = "%c";
 const char D_80099080[] = "(null)";
 
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/fault_drawer/FaultDrawer_FormatStringFunc.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/boot/fault_drawer/FaultDrawer_FormatStringFunc.s")
 
 void FaultDrawer_VPrintf(const char* str, char* args) { // va_list
     _Printf((printf_func)FaultDrawer_FormatStringFunc, sFaultDrawContext, str, args);

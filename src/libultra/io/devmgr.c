@@ -106,5 +106,5 @@ label:
     }
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/devmgr/__osDevMgrMain.asm")
+#pragma GLOBAL_ASM("./asm/non_matchings/boot/devmgr/__osDevMgrMain.s")
 #endif

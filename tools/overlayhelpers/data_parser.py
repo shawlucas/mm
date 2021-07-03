@@ -89,7 +89,7 @@ def main():
 
     if args.method not in ['extern', 'arrays']:
         print("Acceptable methods are {extern} and {arrays}.")
-        print("Example usage: ./data_parser.py --method arrays --file ../../asm/overlays/ovl_En_Wallmas_data.asm")
+        print("Example usage: ./data_parser.py --method arrays --file ../../asm/overlays/ovl_En_Wallmas_data.s")
         return
 
     if args.file:
@@ -101,7 +101,7 @@ def main():
         if c_dir_path is None:
             sys.exit(
                 "Cannot find appropriate c file dir. In argumentless mode, run this script from the c file's corresponding asm dir.")
-        print("Example usage: ./data_parser.py --method arrays --file ../../asm/overlays/ovl_En_Wallmas_data.asm")
+        print("Example usage: ./data_parser.py --method arrays --file ../../asm/overlays/ovl_En_Wallmas_data.s")
         c_file = get_c_file(c_dir_path)
         c_file_path = os.path.join(c_dir_path, c_file)
         print("Using file: {}".format(c_file_path))

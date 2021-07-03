@@ -545,7 +545,7 @@ void EffectSsHahen_SpawnBurst(GlobalContext* globalCtx, Vec3f* pos, f32 burstSca
     }
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_effect_soft_sprite_old_init/EffectSsHahen_SpawnBurst.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_effect_soft_sprite_old_init/EffectSsHahen_SpawnBurst.s")
 #endif
 
 extern Vec3f D_801AE3E0;
@@ -751,7 +751,7 @@ void EffectSsIcePiece_SpawnBurst(GlobalContext* globalCtx, Vec3f* refPos, f32 sc
     }
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_effect_soft_sprite_old_init/EffectSsIcePiece_SpawnBurst.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_effect_soft_sprite_old_init/EffectSsIcePiece_SpawnBurst.s")
 #endif
 
 // EffectSsEnIce Spawn Functions
@@ -846,7 +846,7 @@ void EffectSsFireTail_SpawnFlame(GlobalContext* globalCtx, Actor* actor, Vec3f* 
 #else
 void EffectSsFireTail_SpawnFlame(GlobalContext* globalCtx, Actor* actor, Vec3f* pos, f32 arg3, s16 bodyPart,
                                  f32 colorIntensity);
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_effect_soft_sprite_old_init/EffectSsFireTail_SpawnFlame.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_effect_soft_sprite_old_init/EffectSsFireTail_SpawnFlame.s")
 #endif
 
 void EffectSsFireTail_SpawnFlameOnPlayer(GlobalContext* globalCtx, f32 scale, s16 bodyPart, f32 colorIntensity) {

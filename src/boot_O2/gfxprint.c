@@ -109,10 +109,10 @@ void GfxPrint_PrintCharImpl(GfxPrint* this, u8 c) {
     this->posX += 32;
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/gfxprint/GfxPrint_PrintCharImpl.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/boot/gfxprint/GfxPrint_PrintCharImpl.s")
 #endif
 
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/gfxprint/GfxPrint_PrintChar.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/boot/gfxprint/GfxPrint_PrintChar.s")
 
 void GfxPrint_PrintStringWithSize(GfxPrint* this, const void* buffer, size_t charSize, size_t charCount) {
     const char* str = (const char*)buffer;
@@ -173,7 +173,7 @@ Gfx* GfxPrint_Close(GfxPrint* this) {
 }
 
 void GfxPrint_VPrintf(GfxPrint* this, const char* fmt, va_list args) {
-    func_80087900(&this->callback, fmt, args);
+    PrintUtils_VPrintf(&this->callback, fmt, args);
 }
 
 void GfxPrint_Printf(GfxPrint* this, const char* fmt, ...) {

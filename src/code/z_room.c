@@ -44,13 +44,13 @@ void Room_DrawType0Mesh(GlobalContext* globalCtx, Room* room, u32 flags) {
     }
 }
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_room/Room_DrawType2Mesh.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_room/Room_DrawType2Mesh.s")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_room/func_8012DEE8.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_room/func_8012DEE8.s")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_room/func_8012E254.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_room/func_8012E254.s")
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_room/func_8012E32C.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_room/func_8012E32C.s")
 
 void Room_DrawType1Mesh(GlobalContext* globalCtx, Room* room, u32 flags) {
     RoomMeshType1* mesh = &room->mesh->type1;
@@ -59,7 +59,7 @@ void Room_DrawType1Mesh(GlobalContext* globalCtx, Room* room, u32 flags) {
     } else if (mesh->format == 2) {
         func_8012E32C(globalCtx, room, flags);
     } else {
-        assert_fail(D_801DDFAC, 0x3c5);
+        __assert(D_801DDFAC, 0x3c5);
     }
 }
 
@@ -74,7 +74,7 @@ void Room_Init(GlobalContext* globalCtx, RoomContext* roomCtx) {
     }
 }
 
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_room/Room_AllocateAndLoad.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_room/Room_AllocateAndLoad.s")
 
 #ifdef NON_MATCHING
 s32 Room_StartRoomTransition(GlobalContext* globalCtx, RoomContext* roomCtx, s32 index) {
@@ -103,7 +103,7 @@ s32 Room_StartRoomTransition(GlobalContext* globalCtx, RoomContext* roomCtx, s32
     return 0;
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_room/Room_StartRoomTransition.asm")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_room/Room_StartRoomTransition.s")
 #endif
 
 s32 Room_HandleLoadCallbacks(GlobalContext* globalCtx, RoomContext* roomCtx) {

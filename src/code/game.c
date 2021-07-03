@@ -164,7 +164,7 @@ void GameState_InitArena(GameState* gameState, size_t size) {
     }
 
     THA_Ct(&gameState->heap, NULL, 0);
-    assert_fail("../game.c", 1035);
+    __assert("../game.c", 1035);
 }
 
 void GameState_Realloc(GameState* gameState, size_t size) {
@@ -189,7 +189,7 @@ void GameState_Realloc(GameState* gameState, size_t size) {
         THA_Ct(&gameState->heap, gameArena, size);
     } else {
         THA_Ct(&gameState->heap, NULL, 0);
-        assert_fail("../game.c", 1074);
+        __assert("../game.c", 1074);
     }
 }
 
