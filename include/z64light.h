@@ -2,7 +2,7 @@
 #define _Z64LIGHT_H_
 
 #include <ultra64.h>
-#include <PR/gbi.h>
+#include <ultra64/gbi.h>
 #include <color.h>
 
 typedef struct {

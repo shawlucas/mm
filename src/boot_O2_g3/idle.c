@@ -35,8 +35,8 @@ void Idle_InitMemory(void) {
     void* memEnd = (void*)(0x80000000 + osMemSize);
 
     Idle_ClearMemory((void*)0x80000400, &gFramebuffer1);
-    Idle_ClearMemory(&D_80025D00, (int*)&boot_text_start);
-    Idle_ClearMemory(&code_bss_end, memEnd);
+    Idle_ClearMemory(&D_80025D00, (int*)&_bootSegmentStart);
+    Idle_ClearMemory(&_bootSegmentEnd, memEnd);
 }
 
 #ifdef NON_MATCHING

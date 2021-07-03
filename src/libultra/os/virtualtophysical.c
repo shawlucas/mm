@@ -1,5 +1,4 @@
-#include <PR/ultratypes.h>
-#include <osint.h>
+#include <ultra64/types.h>
 #include <stdint.h>
 
 uintptr_t osVirtualToPhysical(void* virtualAddress) {

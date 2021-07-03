@@ -3,7 +3,6 @@
 
 #include "ultra64.h"
 #include "z64math.h"
-#include <os.h>
 
 typedef struct {
     /* 0x00 */ u8 buttonItems[4][4];

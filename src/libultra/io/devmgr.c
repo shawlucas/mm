@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include <global.h>
-#include "PR/hardware.h"
 
 #ifdef NON_MATCHING
 // rodata issues
@@ -9,10 +8,10 @@ void __osDevMgrMain(void* arg) {
     OSMesg sp70;
     OSMesg sp6C; // "dummy"
     s32 ret;
-    OSDevMgr* devMgr;
+    OSMgrArgs* devMgr;
     s32 msgVar = 0;
 
-    devMgr = (OSDevMgr *)arg;
+    devMgr = (OSMgrArgs *)arg;
     ioMesg = NULL;
     ret = 0;
 

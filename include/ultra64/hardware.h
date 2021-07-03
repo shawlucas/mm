@@ -1,6 +1,8 @@
 #ifndef _ULTRA64_HARDWARE_H_
 #define _ULTRA64_HARDWARE_H_
 
+#define HW_REG(reg, type) *(volatile type*)((reg) | 0xa0000000)
+
 #define AI_DRAM_ADDR_REG 0x04500000
 #define AI_LEN_REG 0x04500004
 #define AI_CONTROL_REG 0x04500008

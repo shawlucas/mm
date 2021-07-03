@@ -1,10 +1,8 @@
 #ifndef _VARIABLES_H_
 #define _VARIABLES_H_
 
-#include <z64.h>
-#include <segment_symbols.h>
-#include <segment.h>
-#include <section.h>
+#include "z64.h"
+#include "segment_symbols.h"
 
 // pre-boot variables
 extern UNK_TYPE osTvType;
@@ -51,7 +49,6 @@ extern u32 sRandInt;
 extern OSViMode osViModeNtscHpf1;
 extern OSViMode osViModePalLan1;
 extern s16 sintable[1024];
-extern __osHwInt __osHwIntTable[];
 // extern UNK_TYPE1 D_80097DE4;
 // extern UNK_TYPE4 D_80097E08;
 extern OSThread* __osThreadTail;
@@ -65,7 +62,6 @@ extern u64 osClockRate;
 extern s32 osViClock;
 extern UNK_TYPE4 __osShutdown;
 extern UNK_TYPE4 __OSGlobalIntMask;
-extern OSDevMgr __osPiDevMgr;
 extern OSPiHandle* __osPiTable;
 extern OSPiHandle* __osCurrentHandle[];
 extern UNK_TYPE4 __osPiAccessQueueEnabled;
@@ -84,14 +80,13 @@ extern float D_80097F90;
 // extern UNK_TYPE4 D_80097FB0;
 extern OSViMode osViModeNtscLan1;
 extern OSViMode osViModeMpalLan1;
-extern __OSViContext D_80098060[2];
-extern __OSViContext* __osViCurr;
-extern __OSViContext* __osViNext;
+extern OSViContext D_80098060[2];
+extern OSViContext* __osViCurr;
+extern OSViContext* __osViNext;
 // extern UNK_TYPE4 D_800980D0;
 extern OSViMode osViModeFpalLan1;
 extern char ldigs[];
 extern char udigs[];
-extern OSDevMgr __osViDevMgr;
 extern UNK_TYPE4 __additional_scanline;
 // extern UNK_TYPE1 D_80098180;
 extern char bootThreadName[];
@@ -350,7 +345,6 @@ extern OSMesg D_8009E3E8[1];
 extern OSMesg D_8009E3F0[1];
 extern OSMesgQueue __osPiAccessQueue;
 extern __OSInode __osPfsInodeCache;
-extern __OSEventState __osEventStateTab[16];
 extern OSTimer D_8009E590;
 extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;

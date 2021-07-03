@@ -5,16 +5,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include <PR/ultratypes.h>
-#include <PR/gbi.h>
-#include <PR/sched.h>
-#include <io/controller.h>
-#include <osint.h>
-#include <viint.h>
+#include "ultra64.h"
+#include <ultra64/gbi.h>
+#include <ultra64/controller.h>
 #include <math.h>
-#include <os.h>
 #include <stdlib.h>
-#include <xstdio.h>
 #include <unk.h>
 
 #include <sfx.h>
@@ -1221,6 +1216,11 @@ typedef struct OSMesgQueueListNode_t {
     /* 0x0 */ struct OSMesgQueueListNode_t* next;
     /* 0x4 */ OSMesgQueue* queue;
 } OSMesgQueueListNode; // size = 0x8
+
+typedef struct {
+    /* 0x00 */ s16 type;
+    /* 0x02 */ char  misc[0x1E];
+} OSScMsg; // size = 0x20
 
 typedef struct {
     /* 0x000 */ OSScMsg verticalRetraceMesg;

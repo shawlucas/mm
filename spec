@@ -13,7 +13,7 @@ endseg
 beginseg
     name "boot"
     address 0x80080060
-    include "build/src/boot_O2_g3/boot_main.o"  // .text section
+    include "build/src/boot_O2_g3/boot_main.o"
     include "build/asm/boot/idle.text.o"
     include "build/asm/boot/viconfig.text.o"
     include "build/asm/boot/z_std_dma.text.o"
