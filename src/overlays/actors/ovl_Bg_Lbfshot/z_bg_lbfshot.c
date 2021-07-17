@@ -8,15 +8,17 @@ void BgLbfshot_Init(Actor* thisx, GlobalContext* globalCtx);
 void BgLbfshot_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgLbfshot_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Bg_Lbfshot_InitVars = { ACTOR_BG_LBFSHOT,
-                                        ACTORCAT_BG,
-                                        FLAGS,
-                                        OBJECT_LBFSHOT,
-                                        sizeof(BgLbfshot),
-                                        (ActorFunc)BgLbfshot_Init,
-                                        (ActorFunc)BgLbfshot_Destroy,
-                                        (ActorFunc)Actor_NoOp,
-                                        (ActorFunc)BgLbfshot_Draw };
+const ActorInit Bg_Lbfshot_InitVars = {
+    ACTOR_BG_LBFSHOT,
+    ACTORCAT_BG,
+    FLAGS,
+    OBJECT_LBFSHOT,
+    sizeof(BgLbfshot),
+    (ActorFunc)BgLbfshot_Init,
+    (ActorFunc)BgLbfshot_Destroy,
+    (ActorFunc)Actor_Noop,
+    (ActorFunc)BgLbfshot_Draw,
+};
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_STOP),

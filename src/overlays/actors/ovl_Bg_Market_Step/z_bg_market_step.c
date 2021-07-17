@@ -10,7 +10,7 @@ void BgMarketStep_Draw(Actor* thisx, GlobalContext* globalCtx);
 const ActorInit Bg_Market_Step_InitVars = {
     ACTOR_BG_MARKET_STEP,  ACTORCAT_BG,           FLAGS,
     OBJECT_MARKET_OBJ,     sizeof(BgMarketStep),  (ActorFunc)BgMarketStep_Init,
-    (ActorFunc)Actor_NoOp, (ActorFunc)Actor_NoOp, (ActorFunc)BgMarketStep_Draw
+    (ActorFunc)Actor_Noop, (ActorFunc)Actor_Noop, (ActorFunc)BgMarketStep_Draw,
 };
 
 static InitChainEntry sInitChain[] = {

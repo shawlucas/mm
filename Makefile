@@ -76,15 +76,7 @@ ASFLAGS := -march=vr4300 -32 -Iinclude
 MIPS_VERSION := -mips2
 
 # we support Microsoft extensions such as anonymous structs, which the compiler does support but warns for their usage. Surpress the warnings with -woff.
-CFLAGS += -G 0 -non_shared -Xfullwarn -Xcpluscomm -Iinclude -Isrc -Wab,-r4300_mul -woff 649,838,712
-
-ifeq ($(shell getconf LONG_BIT), 32)
-  # Work around memory allocation bug in QEMU
-  export QEMU_GUEST_BASE := 1
-else
-  # Ensure that gcc treats the code as 32-bit
-  CC_CHECK += -m32
-endif
+CFLAGS += -G 0 -non_shared -Xfullwarn -Xcpluscomm -Iinclude -Isrc -Iassets -Ibuild -I./ -Isrc -Wab,-r4300_mul -woff 624,649,838,712
 
 #### Files ####
 
@@ -224,6 +216,10 @@ build/binary/assets/scenes/%: build/code.elf
 
 build/undefined_syms.txt: undefined_syms.txt
 	$(CPP) $(CPPFLAGS) $< > build/undefined_syms.txt
+
+#build/%.d: %.c
+#@./tools/depend.py $< $@
+#@$(GCC) $< -Iinclude -Isrc -I./ -MM -MT 'build/$*.o' >> $@
 
 build/ldscript.txt: $(SPEC)
 	$(CPP) $(CPPFLAGS) $< > build/spec

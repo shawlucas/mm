@@ -23,7 +23,7 @@
             (curState)->nextGameStateInit = (GameStateFunc)newInit; \
             (curState)->nextGameStateSize = sizeof(newStruct);
 
-#define PLAYER ((ActorPlayer*)globalCtx->actorCtx.actorList[ACTORCAT_PLAYER].first)
+#define PLAYER ((Player*)globalCtx->actorCtx.actorList[ACTORCAT_PLAYER].first)
 
 // linkAge still exists in MM, but is always set to 0 (always adult)
 // There are remnants of these macros from OOT, but they are essentially useless
@@ -31,6 +31,8 @@
 #define LINK_IS_ADULT (gSaveContext.linkAge == 0)
 
 #define CURRENT_DAY (gSaveContext.day % 5)
+
+#define CLOCK_TIME(hr, min) ((s32)(((hr) * 60 + (min)) * 0x10000 / (24 * 60)))
 
 #define SLOT(item) gItemSlots[item]
 #define AMMO(item) gSaveContext.inventory.ammo[SLOT(item)]

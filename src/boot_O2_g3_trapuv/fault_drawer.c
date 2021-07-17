@@ -176,7 +176,7 @@ const char D_80099078[] = "\n";
 const char D_8009907C[] = "%c";
 const char D_80099080[] = "(null)";
 
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/fault_drawer/FaultDrawer_FormatStringFunc.s")
+#pragma GLOBAL_ASM("asm/non_matchings/boot/fault_drawer/FaultDrawer_FormatStringFunc.s")
 
 void FaultDrawer_VPrintf(const char* str, char* args) { // va_list
     _Printf((printf_func)FaultDrawer_FormatStringFunc, sFaultDrawContext, str, args);

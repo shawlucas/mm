@@ -520,7 +520,7 @@ s32 Actor_IsActorFacedByActor(Actor* actor, Actor* other, s16 tolerance) {
     s16 angle;
     s16 dist;
 
-    angle = Actor_YawBetweenActors(actor, other) + 0x8000;
+    angle = BINANG_ROT180(Actor_YawBetweenActors(actor, other));
     dist = angle - other->shape.rot.y;
     if (ABS_ALT(dist) < tolerance) {
         return 1;
@@ -568,7 +568,7 @@ s32 Actor_IsActorFacingActorAndWithinRange(Actor* actor, Actor* other, f32 range
 
 #pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800B7678.s")
 
-#pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800B78B8.s")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/Actor_UpdateBgCheckInfo.s")
 
 #pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800B7E04.s")
 
@@ -624,9 +624,9 @@ s32 Actor_IsActorFacingActorAndWithinRange(Actor* actor, Actor* other, f32 range
 
 u32 Actor_HasParent(Actor* actor, GlobalContext* globalCtx) {
     if (actor->parent != NULL) {
-        return 1;
+        return true;
     } else {
-        return 0;
+        return false;
     }
 }
 
@@ -638,7 +638,13 @@ u32 Actor_HasParent(Actor* actor, GlobalContext* globalCtx) {
 
 #pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800B8BD0.s")
 
-#pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800B8BFC.s")
+s32 Actor_HasNoParent(Actor* actor, GlobalContext* globalCtx) {
+    if (!actor->parent) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800B8C20.s")
 
@@ -730,7 +736,7 @@ void Actor_DrawAllSetup(GlobalContext* globalCtx) {
 void Actor_FreeOverlay(ActorOverlay* entry) {
     void* ramAddr;
 
-    if (entry->nbLoaded == 0) {
+    if (entry->numLoaded == 0) {
         ramAddr = entry->loadedRamAddr;
         if (ramAddr != NULL) {
             // Bit 1 - always loaded
@@ -840,7 +846,7 @@ void Actor_FreeOverlay(ActorOverlay* entry) {
 
 #pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800BDCF4.s")
 
-#pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/Actor_NoOp.s")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/Actor_Noop.s")
 
 #pragma GLOBAL_ASM("asm/non_matchings/code/z_actor/func_800BDFC0.s")
 

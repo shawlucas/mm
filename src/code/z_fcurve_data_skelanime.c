@@ -96,7 +96,7 @@ s32 SkelCurve_Update(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve) {
     return ret;
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_fcurve_data_skelanime/SkelCurve_Update.s")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_fcurve_data_skelanime/SkelCurve_Update.s")
 #endif
 
 void SkelCurve_DrawLimb(GlobalContext* globalCtx, s32 limbIndex, SkelAnimeCurve* skelCurve,

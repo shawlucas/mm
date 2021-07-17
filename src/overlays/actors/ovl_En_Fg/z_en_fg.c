@@ -75,8 +75,38 @@ static CollisionCheckInfoInit2 sColChkInfoInit2 = {
 };
 
 static DamageTable sDamageTable = {
-    0x00, 0x11, 0x00, 0x01, 0x00, 0xE1, 0x11, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x31, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    /* Deku Nut       */ DMG_ENTRY(0, 0x0),
+    /* Deku Stick     */ DMG_ENTRY(1, 0x1),
+    /* Horse trample  */ DMG_ENTRY(0, 0x0),
+    /* Explosives     */ DMG_ENTRY(1, 0x0),
+    /* Zora boomerang */ DMG_ENTRY(0, 0x0),
+    /* Normal arrow   */ DMG_ENTRY(1, 0xE),
+    /* UNK_DMG_0x06   */ DMG_ENTRY(1, 0x1),
+    /* Hookshot       */ DMG_ENTRY(0, 0xF),
+    /* Goron punch    */ DMG_ENTRY(0, 0x0),
+    /* Sword          */ DMG_ENTRY(0, 0x0),
+    /* Goron pound    */ DMG_ENTRY(0, 0x0),
+    /* Fire arrow     */ DMG_ENTRY(0, 0x0),
+    /* Ice arrow      */ DMG_ENTRY(1, 0x3),
+    /* Light arrow    */ DMG_ENTRY(0, 0x0),
+    /* Goron spikes   */ DMG_ENTRY(0, 0x0),
+    /* Deku spin      */ DMG_ENTRY(0, 0x0),
+    /* Deku bubble    */ DMG_ENTRY(0, 0x0),
+    /* Deku launch    */ DMG_ENTRY(0, 0x0),
+    /* UNK_DMG_0x12   */ DMG_ENTRY(0, 0x0),
+    /* Zora barrier   */ DMG_ENTRY(0, 0x0),
+    /* Normal shield  */ DMG_ENTRY(0, 0x0),
+    /* Light ray      */ DMG_ENTRY(0, 0x0),
+    /* Thrown object  */ DMG_ENTRY(0, 0x0),
+    /* Zora punch     */ DMG_ENTRY(0, 0x0),
+    /* Spin attack    */ DMG_ENTRY(0, 0x0),
+    /* Sword beam     */ DMG_ENTRY(0, 0x0),
+    /* Normal Roll    */ DMG_ENTRY(0, 0x0),
+    /* UNK_DMG_0x1B   */ DMG_ENTRY(0, 0x0),
+    /* UNK_DMG_0x1C   */ DMG_ENTRY(0, 0x0),
+    /* Unblockable    */ DMG_ENTRY(0, 0x0),
+    /* UNK_DMG_0x1E   */ DMG_ENTRY(0, 0x0),
+    /* Powder Keg     */ DMG_ENTRY(0, 0x0),
 };
 
 static ActorAnimationEntryS sAnimations[] = {
@@ -109,8 +139,8 @@ void func_80A2D348(EnFg* this, GlobalContext* globalCtx) {
         this->collider.dim.pos.x = this->actor.world.pos.x;
         this->collider.dim.pos.y = this->actor.world.pos.y;
         this->collider.dim.pos.z = this->actor.world.pos.z;
-        CollisionCheck_SetAC(globalCtx, &globalCtx->colCheckCtx, &this->collider.base);
-        CollisionCheck_SetOC(globalCtx, &globalCtx->colCheckCtx, &this->collider.base);
+        CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &this->collider.base);
+        CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &this->collider.base);
     }
 }
 
@@ -130,7 +160,7 @@ u8 EnFg_UpdateHealth(EnFg* this) {
 s32 EnFg_GetDamageEffect(EnFg* this) {
     s32 ret = 0;
 
-    if (this->collider.base.acFlags & 2) {
+    if (this->collider.base.acFlags & AC_HIT) {
         switch (this->actor.colChkInfo.damageEffect) {
             case 1:
                 ret = FG_DMGEFFECT_DEKUSTICK;
@@ -148,7 +178,7 @@ s32 EnFg_GetDamageEffect(EnFg* this) {
                 ret = FG_DMGEFFECT_EXPLOSION;
                 break;
         }
-        this->collider.base.acFlags &= ~2;
+        this->collider.base.acFlags &= ~AC_HIT;
         EnFg_UpdateHealth(this);
     }
     return ret;
@@ -329,7 +359,7 @@ void EnFg_Update(Actor* thisx, GlobalContext* globalCtx) {
         if (1) {}
         if (!flagSet) {
             this->actionFunc(this, globalCtx);
-            func_800B78B8(globalCtx, &this->actor, BASE_REG(16, 0), BASE_REG(16, 1), 0.0f, 5);
+            Actor_UpdateBgCheckInfo(globalCtx, &this->actor, BASE_REG(16, 0), BASE_REG(16, 1), 0.0f, 0x5);
         }
     }
 
@@ -361,7 +391,7 @@ void EnFg_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
     if ((limbIndex == 7) || (limbIndex == 8)) {
         OPEN_DISPS(globalCtx->state.gfxCtx);
         Matrix_StatePush();
-        Matrix_NormalizeXYZ(&globalCtx->unk187FC);
+        Matrix_NormalizeXYZ(&globalCtx->mf_187FC);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPDisplayList(POLY_OPA_DISP++, *dList);
         Matrix_StatePop();
@@ -455,7 +485,7 @@ void EnFg_DrawDust(GlobalContext* globalCtx, EnFgEffectDust* dustEffect) {
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, alpha);
             gDPPipeSync(POLY_XLU_DISP++);
             Matrix_InsertTranslation(dustEffect->pos.x, dustEffect->pos.y, dustEffect->pos.z, MTXMODE_NEW);
-            Matrix_NormalizeXYZ(&globalCtx->unk187FC);
+            Matrix_NormalizeXYZ(&globalCtx->mf_187FC);
             Matrix_Scale(dustEffect->xyScale, dustEffect->xyScale, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

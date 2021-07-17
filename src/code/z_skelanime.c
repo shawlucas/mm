@@ -924,7 +924,7 @@ ret:
     return limbCount;
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/code/z_skelanime/SkelAnime_GetFrameData2.s")
+#pragma GLOBAL_ASM("asm/non_matchings/code/z_skelanime/SkelAnime_GetFrameData2.s")
 #endif
 
 /**

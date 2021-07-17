@@ -53,7 +53,7 @@ void EnAObj_Update(Actor* thisx, GlobalContext* globalCtx) {
     this->actionFunc((struct EnAObj*)this, globalCtx);
 
     Actor_SetHeight(&this->base, 45.0f);
-    CollisionCheck_SetOC(globalCtx, &globalCtx->colCheckCtx, &this->collision.base);
+    CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &this->collision.base);
 }
 
 void EnAObj_Draw(Actor* thisx, GlobalContext* globalCtx) {

@@ -104,5 +104,5 @@ void __osDevMgrMain(void* arg) {
     }
 }
 #else
-#pragma GLOBAL_ASM("./asm/non_matchings/boot/devmgr/__osDevMgrMain.s")
+#pragma GLOBAL_ASM("asm/non_matchings/boot/devmgr/__osDevMgrMain.s")
 #endif
