@@ -1272,8 +1272,18 @@ typedef struct {
   int       x1,y1,x2,y2;    /* texture offsets for highlight 1/2 */
 } Hilite_t;
 
+typedef struct {
+    unsigned char col[3];
+    unsigned char unk3;
+    unsigned char colc[3];
+    unsigned char unk7;
+    short pos[3];
+    unsigned char unkE;
+} PointLight_t;
+
 typedef union {
     Light_t l;
+    PointLight_t p;
     long long int   force_structure_alignment[2];
 } Light;
 

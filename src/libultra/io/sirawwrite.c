@@ -1,4 +1,4 @@
-#include <osint.h>
+#include <ultra64.h>
 #include <assert.h>
 
 s32 __osSiRawWriteIo(u32 devAddr, u32 data) {

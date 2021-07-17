@@ -5,7 +5,7 @@
 #include "segment_symbols.h"
 
 // pre-boot variables
-extern UNK_TYPE osTvType;
+extern u32 osTvType;
 extern UNK_TYPE osRomType;
 extern UNK_TYPE osRomBase;
 extern UNK_TYPE osResetType;
@@ -26,7 +26,6 @@ extern u32 gViConfigFeatures;
 extern f32 gViConfigXScale;
 extern f32 gViConfigYScale;
 extern OSPiHandle* gCartHandle;
-extern u32 sDmaMgrDmaBuffSize;
 extern vs32 gIrqMgrResetStatus;
 extern volatile OSTime sIrqMgrResetTime;
 extern volatile OSTime sIrqMgrRetraceTime;
@@ -95,11 +94,6 @@ extern char irqmgrThreadName[];
 extern char mainThreadName[];
 extern f32 D_800981B0;
 extern char D_800981C0[];
-extern const char dmamgrString800981C4[];
-extern const char dmamgrString800981D4[];
-extern const char dmamgrString800981E4[];
-extern const char dmamgrString800981F4[];
-extern const char dmamgrThreadName[];
 extern char D_80098210[];
 extern char yaz0String80098220[];
 extern char yaz0String8009823C[];

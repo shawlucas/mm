@@ -1234,7 +1234,7 @@ void func_8012CF0C(GraphicsContext* gfxCtx, s32 iParm2, s32 iParm3, u8 r, u8 g, 
     gSegments[15] = (u32)gfxCtx->framebuffer;
 
     gfx = graphDlEntry + 0x16;
-    gSPDisplayList(gfx + 0, &D_0E000140);
+    gSPDisplayList(gfx + 0, &D_801E0140);
     gSPDisplayList(gfx + 1, D_801C1CA0);
     gDPSetColorImage(gfx + 2, G_IM_FMT_RGBA, G_IM_SIZ_16b, D_801FBBCC, 0x0F000000);
     if (gfxCtx->zbuffer != NULL) {
@@ -1257,7 +1257,7 @@ void func_8012CF0C(GraphicsContext* gfxCtx, s32 iParm2, s32 iParm3, u8 r, u8 g, 
         gDPSetCycleType(gfx + 2, G_CYC_FILL);
         gDPSetRenderMode(gfx + 3, G_RM_NOOP, G_RM_NOOP2);
         gDPSetFillColor(gfx + 4, (GPACK_RGBA5551(0xFF, 0xFF, 0xF0, 0) << 16) | GPACK_RGBA5551(0xFF, 0xFF, 0xF0, 0));
-        gSPDisplayList(gfx + 5, &D_0E0002C8);
+        gSPDisplayList(gfx + 5, &D_80202AC8);
         gDPSetColorImage(gfx + 6, G_IM_FMT_RGBA, G_IM_SIZ_16b, D_801FBBCC, gfxCtx->zbuffer);
         gSPEndDisplayList(gfx + 7);
     }
@@ -1267,7 +1267,7 @@ void func_8012CF0C(GraphicsContext* gfxCtx, s32 iParm2, s32 iParm3, u8 r, u8 g, 
     gDPSetCycleType(gfx + 1, G_CYC_FILL);
     gDPSetRenderMode(gfx + 2, G_RM_NOOP, G_RM_NOOP2);
     gDPSetFillColor(gfx + 3, GPACK_RGBA5551(r, g, b, 0));
-    gSPBranchList(gfx + 4, &D_0E0002C8);
+    gSPBranchList(gfx + 4, &D_80202AC8);
 
     gfx = graphDlEntry + 0x59;
     gDPFillRectangle(gfx + 0, 0, 0, D_801FBBCC - 1, D_801FBBCE - 1);
@@ -1298,7 +1298,7 @@ void func_8012CF0C(GraphicsContext* gfxCtx, s32 iParm2, s32 iParm3, u8 r, u8 g, 
         gSPDisplayList(gfxCtx->polyOpa.p++, &D_0E000048);
     }
     if (iParm2) {
-        gSPDisplayList(gfxCtx->polyOpa.p++, &D_0E000088);
+        gSPDisplayList(gfxCtx->polyOpa.p++, &D_801E0088);
     }
 }
 #else

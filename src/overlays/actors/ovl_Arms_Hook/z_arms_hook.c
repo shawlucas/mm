@@ -318,7 +318,7 @@ void ArmsHook_Draw(Actor* thisx, GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gSPDisplayList(sp44->polyOpa.p++, D_0601D960);
             Matrix_InsertTranslation(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                        MTXMODE_NEW);
+                                     MTXMODE_NEW);
             Math_Vec3f_Diff(&player->unk368, &this->actor.world.pos, &sp68);
             sp48 = SQ(sp68.x) + SQ(sp68.z);
             sp4C = sqrtf(sp48);
@@ -328,7 +328,7 @@ void ArmsHook_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Scale(0.015f, 0.015f, f0 * 0.01f, MTXMODE_APPLY);
             gSPMatrix(sp44->polyOpa.p++, Matrix_NewMtx(globalCtx->state.gfxCtx),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(sp44->polyOpa.p++, D_040008D0);
+            gSPDisplayList(sp44->polyOpa.p++, D_800982D0);
             func_801229A0(globalCtx, player);
         }
     }

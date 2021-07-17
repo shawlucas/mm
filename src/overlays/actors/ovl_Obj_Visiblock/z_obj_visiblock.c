@@ -8,17 +8,15 @@ void ObjVisiblock_Init(Actor* thisx, GlobalContext* globalCtx);
 void ObjVisiblock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjVisiblock_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Obj_Visiblock_InitVars = {
-    ACTOR_OBJ_VISIBLOCK,
-    ACTORCAT_BG,
-    FLAGS,
-    OBJECT_VISIBLOCK,
-    sizeof(ObjVisiblock),
-    (ActorFunc)ObjVisiblock_Init,
-    (ActorFunc)ObjVisiblock_Destroy,
-    (ActorFunc)Actor_NoOp,
-    (ActorFunc)ObjVisiblock_Draw
-};
+const ActorInit Obj_Visiblock_InitVars = { ACTOR_OBJ_VISIBLOCK,
+                                           ACTORCAT_BG,
+                                           FLAGS,
+                                           OBJECT_VISIBLOCK,
+                                           sizeof(ObjVisiblock),
+                                           (ActorFunc)ObjVisiblock_Init,
+                                           (ActorFunc)ObjVisiblock_Destroy,
+                                           (ActorFunc)Actor_NoOp,
+                                           (ActorFunc)ObjVisiblock_Draw };
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneForward, 4000, ICHAIN_CONTINUE),

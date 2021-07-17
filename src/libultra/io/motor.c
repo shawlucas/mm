@@ -1,5 +1,7 @@
 #include <ultra64.h>
+#include <ultra64.h>
 #include <global.h>
+#include <ultra64/controller.h>
 
 #define BANK_ADDR 0x400
 #define MOTOR_ID 0x80
@@ -16,10 +18,10 @@ s32 __osMotorAccess(OSPfs* pfs, u32 vibrate) {
     }
 
     __osSiGetAccess();
-    osPifBuffers[pfs->channel].pifstatus = 1;
+    osPifBuffers[pfs->channel].status = 1;
     buf += pfs->channel;
     for (i = 0; i < BLOCKSIZE; i++) {
-        ((__OSContRamReadFormat*)buf)->data[i] = vibrate;
+        ((__OSContRamHeader*)buf)->data[i] = vibrate;
     }
 
     __osContLastCmd = CONT_CMD_END;
@@ -28,14 +30,14 @@ s32 __osMotorAccess(OSPfs* pfs, u32 vibrate) {
     __osSiRawStartDma(OS_READ, &osPifBuffers[pfs->channel]);
     osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
 
-    ret = ((__OSContRamReadFormat*)buf)->rxsize & 0xC0;
+    ret = ((__OSContRamHeader*)buf)->rxsize & 0xC0;
     if (!ret) {
         if (!vibrate) {
-            if (((__OSContRamReadFormat*)buf)->datacrc != 0) {
+            if (((__OSContRamHeader*)buf)->datacrc != 0) {
                 ret = PFS_ERR_CONTRFAIL;
             }
         } else {
-            if (((__OSContRamReadFormat*)buf)->datacrc != 0xEB) {
+            if (((__OSContRamHeader*)buf)->datacrc != 0xEB) {
                 ret = PFS_ERR_CONTRFAIL;
             }
         }
@@ -47,13 +49,13 @@ s32 __osMotorAccess(OSPfs* pfs, u32 vibrate) {
 }
 void __osSetupMotorWrite(s32 channel, OSPifRam* buf) {
     u8* bufptr = (u8*)buf;
-    __OSContRamReadFormat mempakwr;
+    __OSContRamHeader mempakwr;
     s32 i;
 
-    mempakwr.dummy = 0xFF;
+    mempakwr.unk_00 = 0xFF;
     mempakwr.txsize = 0x23;
     mempakwr.rxsize = 1;
-    mempakwr.cmd = 3; // write mempak
+    mempakwr.poll = 3; // write mempak
     mempakwr.hi = 0x600 >> 3;
     mempakwr.lo = (u8)(__osContAddressCrc(0x600) | (0x600 << 5));
 
@@ -63,7 +65,7 @@ void __osSetupMotorWrite(s32 channel, OSPifRam* buf) {
         }
     }
 
-    *(__OSContRamReadFormat*)bufptr = mempakwr;
+    *(__OSContRamHeader*)bufptr = mempakwr;
     bufptr += sizeof(mempakwr);
     *bufptr = 0xFE;
 }

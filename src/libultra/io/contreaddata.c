@@ -23,42 +23,42 @@ s32 osContStartReadData(OSMesgQueue* mq) {
 
 void osContGetReadData(OSContPad* data) {
     u8* ptr;
-    __OSContReadFormat readformat;
+    __OSContReadHeader readformat;
     int i;
 
-    ptr = (u8*)__osContPifRam.ramarray;
-    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContReadFormat), data++) {
-        readformat = *(__OSContReadFormat*)ptr;
+    ptr = (u8*)__osContPifRam.ram;
+    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContReadHeader), data++) {
+        readformat = *(__OSContReadHeader*)ptr;
         data->errno = (readformat.rxsize & 0xc0) >> 4;
         if (data->errno == 0) {
             data->button = readformat.button;
-            data->stick_x = readformat.stick_x;
-            data->stick_y = readformat.stick_y;
+            data->stick_x = readformat.joyX;
+            data->stick_y = readformat.joyY;
         }
     };
 }
 
 void __osPackReadData() {
     u8* ptr;
-    __OSContReadFormat readformat;
+    __OSContReadHeader readformat;
     int i;
 
-    ptr = (u8*)__osContPifRam.ramarray;
+    ptr = (u8*)__osContPifRam.ram;
     for (i = 0; i < 0xF; i++) {
-        __osContPifRam.ramarray[i] = 0;
+        __osContPifRam.ram[i] = 0;
     }
 
-    __osContPifRam.pifstatus = 1;
-    readformat.dummy = 255;
+    __osContPifRam.status = 1;
+    readformat.align = 255;
     readformat.txsize = 1;
     readformat.rxsize = 4;
-    readformat.cmd = 1;
+    readformat.poll = 1;
     readformat.button = 65535;
-    readformat.stick_x = -1;
-    readformat.stick_y = -1;
+    readformat.joyX = -1;
+    readformat.joyY = -1;
     for (i = 0; i < __osMaxControllers; i++) {
-        *(__OSContReadFormat*)ptr = readformat;
-        ptr += sizeof(__OSContReadFormat);
+        *(__OSContReadHeader*)ptr = readformat;
+        ptr += sizeof(__OSContReadHeader);
     }
     *ptr = 254;
 }

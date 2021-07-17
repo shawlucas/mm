@@ -1,6 +1,5 @@
-#include <ultra64.h>
-#include <global.h>
-#include "os_internal.h"
+#include "ultra64.h"
+#include "ultra64/internal.h"
 
 void __osGetHWIntrRoutine(s32 idx, OSMesgQueue** outQueue, OSMesg* outMsg) {
     *outQueue = __osHwIntTable[idx].queue;

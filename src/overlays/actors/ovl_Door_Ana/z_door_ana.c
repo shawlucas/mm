@@ -200,6 +200,6 @@ void DoorAna_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DoorAna_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx* doorAnaDL = D_05000C40;
+    Gfx* doorAnaDL = D_80098C40;
     func_800BE03C(globalCtx, doorAnaDL);
 }

@@ -48,7 +48,7 @@ FaultDrawer sFaultDrawerDefault = {
     GPACK_RGBA5551(0, 0, 0, 0),         // backColor
     22,                                 // cursorX
     16,                                 // cursorY
-    (u32 *)sFaultDrawerFont,            // font
+    (u32*)sFaultDrawerFont,             // font
     8,                                  // charW
     8,                                  // charH
     0,                                  // charWPad
@@ -154,8 +154,9 @@ void FaultDrawer_SetCharPad(s8 padW, s8 padH) {
 
 void FaultDrawer_SetCursor(s32 x, s32 y) {
     if (sFaultDrawContext->osSyncPrintfEnabled) {
-        osSyncPrintf(VT_CUP("%d", "%d"), (y - sFaultDrawContext->yStart) / (sFaultDrawContext->charH + sFaultDrawContext->charHPad), 
-                                      (x - sFaultDrawContext->xStart) / (sFaultDrawContext->charW + sFaultDrawContext->charWPad));
+        osSyncPrintf(VT_CUP("%d", "%d"),
+                     (y - sFaultDrawContext->yStart) / (sFaultDrawContext->charH + sFaultDrawContext->charHPad),
+                     (x - sFaultDrawContext->xStart) / (sFaultDrawContext->charW + sFaultDrawContext->charWPad));
     }
     sFaultDrawContext->cursorX = x;
     sFaultDrawContext->cursorY = y;

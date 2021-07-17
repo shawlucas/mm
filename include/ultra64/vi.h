@@ -23,6 +23,11 @@
 #define OS_VI_UNK1000       0x1000
 #define OS_VI_UNK2000       0x2000
 
+/* TV Types */
+#define OS_TV_PAL   0
+#define OS_TV_NTSC  1
+#define OS_TV_MPAL  2
+
 typedef struct {
     /* 0x00 */ u32 ctrl;
     /* 0x04 */ u32 width;

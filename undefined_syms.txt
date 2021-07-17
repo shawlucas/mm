@@ -3782,3 +3782,6 @@ D_0E0002F8 = 0x0E0002F8;
 // segment 0x0F
 
 D_0F000000 = 0x0F000000;
+
+// z_std_dma
+D_8009BA08 = sDmaMgrStack + 0x500; // fake symbol

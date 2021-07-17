@@ -34,7 +34,7 @@ void EnAObj_Update1(EnAObj* this, GlobalContext* globalCtx) {
         this->actionFunc = (EnAObjActionFunc)EnAObj_Update2;
     } else {
         v0 = this->base.yawTowardsPlayer - this->base.shape.rot.y;
-        v1 = (v0 < 0)? -v0 : v0;
+        v1 = (v0 < 0) ? -v0 : v0;
         if ((v1 < 10240) || ((this->base.params == 1) && (v1 > 22528))) {
             func_800B863C(&this->base, globalCtx);
         }
@@ -50,7 +50,7 @@ void EnAObj_Update2(EnAObj* this, struct GlobalContext* globalCtx) {
 void EnAObj_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnAObj* this = THIS;
 
-    this->actionFunc((struct EnAObj *)this, globalCtx);
+    this->actionFunc((struct EnAObj*)this, globalCtx);
 
     Actor_SetHeight(&this->base, 45.0f);
     CollisionCheck_SetOC(globalCtx, &globalCtx->colCheckCtx, &this->collision.base);

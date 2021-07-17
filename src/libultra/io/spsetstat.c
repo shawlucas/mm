@@ -1,4 +1,4 @@
-#include <osint.h>
+#include <ultra64.h>
 #include <assert.h>
 
 void __osSpSetStatus(u32 data) {

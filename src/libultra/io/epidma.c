@@ -1,10 +1,11 @@
 #include <ultra64.h>
+#include <ultra64/internal.h>
 #include <global.h>
 
 s32 osEPiStartDma(OSPiHandle* pihandle, OSIoMesg* mb, s32 direction) {
     register s32 result;
 
-    if (!__osPiDevMgr.active) {
+    if (!__osPiDevMgr.initialized) {
         return -1;
     }
 

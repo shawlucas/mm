@@ -1,6 +1,17 @@
 #include <ultra64.h>
 #include <global.h>
 
+IrqMgr gIrqMgr;
+u8 sIrqMgrStack[0x500];
+StackEntry sIrqMgrStackInfo;
+OSThread gMainThread;
+u8 sMainStack[0x900];
+StackEntry sMainStackInfo;
+OSMesg sPiMgrCmdBuff[50];
+OSMesgQueue gPiMgrCmdQ;
+OSViMode gViConfigMode;
+u8 D_8009B290;
+
 u8 D_80096B20 = 1;
 vu8 gViConfigUseDefault = 1;
 u8 gViConfigAdditionalScanLines = 0;
@@ -52,7 +63,7 @@ void Idle_InitCodeAndMemory(void) {
     oldSize = sDmaMgrDmaBuffSize;
     sDmaMgrDmaBuffSize = 0;
 
-    DmaMgr_SendRequestImpl(&dmaReq, (u32)&code_text_start, (u32)_codeSegmentRomStart,
+    DmaMgr_SendRequestImpl(&dmaReq, (u32)&_codeSegmentTextStart, (u32)_codeSegmentRomStart,
                            (u32)_codeSegmentRomEnd - (u32)_codeSegmentRomStart, 0, &queue, 0);
     Idle_InitScreen();
     Idle_InitMemory();

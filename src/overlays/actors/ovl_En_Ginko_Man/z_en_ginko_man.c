@@ -91,7 +91,7 @@ void EnGinkoMan_Init(Actor* thisx, GlobalContext* globalCtx) {
     this->choiceDepositWithdrawl = GINKOMAN_CHOICE_RESET;
     this->serviceFee = 0;
     SkelAnime_InitFlex(globalCtx, &this->skelAnime, object_ginko_skeleton, object_ginko_sitting_anim, this->jointTable,
-                     this->morphTable, 16);
+                       this->morphTable, 16);
     EnGinkoMan_SetupIdle(this);
 }
 
@@ -430,7 +430,8 @@ void EnGinkoMan_WaitForDialogueInput(EnGinkoMan* this, GlobalContext* globalCtx)
                     func_800BDC5C(&this->skelAnime, animations, GINKO_FLOORSMACKING);
                     func_801518B0(globalCtx, 0x476, &this->actor);
                     this->curTextId = 0x476; // you dont have enough deposited to withdrawl
-                } else if (D_801C1E2C[CUR_UPG_VALUE(UPG_WALLET)] < (globalCtx->msgCtx.bankRupeesSelected + gSaveContext.rupees)) {
+                } else if (D_801C1E2C[CUR_UPG_VALUE(UPG_WALLET)] <
+                           (globalCtx->msgCtx.bankRupeesSelected + gSaveContext.rupees)) {
                     // check if wallet is big enough
                     play_sound(NA_SE_SY_ERROR);
                     func_801518B0(globalCtx, 0x475, &this->actor);
@@ -657,7 +658,7 @@ void EnGinkoMan_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 s32 EnGinkoMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* arg) {
-    EnGinkoMan* this = (EnGinkoMan *)arg;
+    EnGinkoMan* this = (EnGinkoMan*)arg;
 
     if (limbIndex == 15) {
         *dList = object_ginko_limb15_dlist;
@@ -691,7 +692,7 @@ void EnGinkoMan_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gDPPipeSync(POLY_OPA_DISP++);
 
     SkelAnime_DrawFlexOpa(globalCtx, this->skelAnime.skeleton, this->skelAnime.jointTable, this->skelAnime.dListCount,
-                     EnGinkoMan_OverrideLimbDraw, EnGinkoMan_PostLimbDraw, &this->actor);
+                          EnGinkoMan_OverrideLimbDraw, EnGinkoMan_PostLimbDraw, &this->actor);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx);
 }

@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <ultra64/internal.h>
 #include <global.h>
 
 void* osViGetNextFramebuffer(void) {
@@ -7,7 +8,7 @@ void* osViGetNextFramebuffer(void) {
 
     saveMask = __osDisableInt();
 
-    framep = __osViNext->framep;
+    framep = __osViNext->buffer;
 
     __osRestoreInt(saveMask);
 

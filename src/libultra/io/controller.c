@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <ultra64/controller.h>
 #include <global.h>
 
 UNK_TYPE4 D_80097E40 = 0;
@@ -43,14 +44,14 @@ s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* data) {
 
 void __osContGetInitData(u8* pattern, OSContStatus* data) {
     u8* ptr;
-    __OSContRequesFormat requestformat;
+    __OSContRequestHeader requestformat;
     int i;
     u8 bits;
 
     bits = 0;
-    ptr = (u8*)__osContPifRam.ramarray;
+    ptr = (u8*)__osContPifRam.ram;
     for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(requestformat), data++) {
-        requestformat = *(__OSContRequesFormat*)ptr;
+        requestformat = *(__OSContRequestHeader*)ptr;
         data->errno = (requestformat.rxsize & 0xc0) >> 4;
         if (data->errno == 0) {
             data->type = requestformat.typel << 8 | requestformat.typeh;
@@ -64,26 +65,26 @@ void __osContGetInitData(u8* pattern, OSContStatus* data) {
 
 void __osPackRequestData(u8 cmd) {
     u8* ptr;
-    __OSContRequesFormat requestformat;
+    __OSContRequestHeader requestformat;
     int i;
 
     for (i = 0; i < 0xF; i++) {
-        __osContPifRam.ramarray[i] = 0;
+        __osContPifRam.ram[i] = 0;
     }
 
-    __osContPifRam.pifstatus = 1;
-    ptr = (u8*)__osContPifRam.ramarray;
-    requestformat.dummy = 255;
+    __osContPifRam.status = 1;
+    ptr = (u8*)__osContPifRam.ram;
+    requestformat.align = 255;
     requestformat.txsize = 1;
     requestformat.rxsize = 3;
-    requestformat.cmd = cmd;
+    requestformat.poll = cmd;
     requestformat.typeh = 255;
     requestformat.typel = 255;
     requestformat.status = 255;
-    requestformat.dummy1 = 255;
+    requestformat.align1 = 255;
 
     for (i = 0; i < __osMaxControllers; i++) {
-        *(__OSContRequesFormat*)ptr = requestformat;
+        *(__OSContRequestHeader*)ptr = requestformat;
         ptr += sizeof(requestformat);
     }
     *ptr = 254;

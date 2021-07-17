@@ -700,11 +700,11 @@ void EnItem00_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 UNK_PTR D_801ADF30[5] = {
-    &D_04061FC0, // Green rupee
+    &D_801F6FC0, // Green rupee
     &D_04061FE0, // Blue rupee
-    &D_04062000, // Red rupee
+    &D_801D6000, // Red rupee
     &D_04062040, // Orange rupee
-    &D_04062020  // Purple rupee
+    &D_80202B20  // Purple rupee
 };
 
 void EnItem00_DrawRupee(EnItem00* this, GlobalContext* globalCtx) {
@@ -726,24 +726,24 @@ void EnItem00_DrawRupee(EnItem00* this, GlobalContext* globalCtx) {
 
     gSPSegment(POLY_OPA_DISP++, 0x08, Lib_SegmentedToVirtual(D_801ADF30[iconNb]));
 
-    gSPDisplayList(POLY_OPA_DISP++, &D_040622C0); // TODO symbol
+    gSPDisplayList(POLY_OPA_DISP++, &D_800992C0); // TODO symbol
 
     CLOSE_DISPS(globalCtx->state.gfxCtx);
 }
 
 UNK_PTR D_801ADF44[12] = {
     &D_0405E6F0, // Heart (Not used)
-    &D_0405CEF0, // Bombs (A), Bombs (0)
+    &D_801DCEF0, // Bombs (A), Bombs (0)
     &D_0405BEF0, // Arrows (10)
     &D_0405B6F0, // Arrows (30)
-    &D_0405C6F0, // Arrows (40), Arrows (50)
-    &D_0405CEF0, // Bombs (B)
+    &D_800986F0, // Arrows (40), Arrows (50)
+    &D_801DCEF0, // Bombs (B)
     &D_040607C0, // Nuts (1), Nuts (10)
-    &D_04060FC0, // Sticks (1)
+    &D_801F6FC0, // Sticks (1)
     &D_040617C0, // Magic (Large)
-    &D_0405FFC0, // Magic (Small)
+    &D_801F6FC0, // Magic (Small)
     NULL,
-    &D_0405F7C0 // Small Key
+    &D_801FE7C0 // Small Key
 };
 
 void EnItem00_DrawSprite(EnItem00* this, GlobalContext* globalCtx) {
