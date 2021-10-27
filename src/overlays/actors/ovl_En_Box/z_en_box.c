@@ -34,7 +34,9 @@ extern InitChainEntry D_80869B50[];
 extern UNK_TYPE D_0600043C;
 extern UNK_TYPE D_06000DB0;
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Box/func_80867BD0.s")
+void EnBox_SetupAction(EnBox* this, EnBoxActionFunc actionFunc) {
+    this->actionFunc = actionFunc;
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Box/func_80867BDC.s")
 

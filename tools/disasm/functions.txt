@@ -4966,7 +4966,7 @@
     0x8086732C:("EnDoor_Update",),
     0x80867350:("func_80867350",),
     0x808674B0:("EnDoor_Draw",),
-    0x80867BD0:("func_80867BD0",),
+    0x80867BD0:("EnBox_SetupAction",),
     0x80867BDC:("func_80867BDC",),
     0x80867C14:("func_80867C14",),
     0x80867C8C:("func_80867C8C",),
