@@ -8,7 +8,7 @@ void FileChoose_Destroy(GameState* thisx);
 
 typedef struct {
     /* 0x00000 */ GameState state;
-    /* 0x000A4 */ Vtx* unk_A4;
+    /* 0x000A4 */ Vtx* windowVtx;
     /* 0x000A8 */ u8* staticSegment;
     /* 0x000AC */ u8* parameterSegment;
     /* 0x000B0 */ u8* titleSegment;
@@ -20,17 +20,17 @@ typedef struct {
     /* 0x242DC */ UNK_TYPE1 unk_242DC[4];
     /* 0x242E0 */ EnvironmentContext envCtx;
     /* 0x243E0 */ Vtx* unk_243E0;
-    /* 0x243E4 */ Vtx* unk_243E4;
-    /* 0x243E8 */ Vtx* unk_243E8;
-    /* 0x243EC */ Vtx* unk_243EC;
+    /* 0x243E4 */ Vtx* windowContentVtx;
+    /* 0x243E8 */ Vtx* keyboardVtx;
+    /* 0x243EC */ Vtx* nameEntryVtx;
     /* 0x243F0 */ Vtx* unk_243F0;
-    /* 0x243F4 */ u8   newf[6][4];
-    /* 0x2440C */ u16  unk_2440C[4];
-    /* 0x24414 */ u8   unk_24414[8][4];
+    /* 0x243F4 */ u8   newf[4][6];
+    /* 0x2440C */ u16  deaths[4];
+    /* 0x24414 */ u8   fileNames[4][8];
     /* 0x24434 */ s16  healthCapacity[4];
     /* 0x2443C */ s16  health[4];
-    /* 0x24444 */ u32  unk_24444[4];
-    /* 0x24454 */ s8   unk_24454[4];
+    /* 0x24444 */ u32  questItems[4];
+    /* 0x24454 */ s8   defense[4];
     /* 0x24458 */ u16  unk_24458[4];
     /* 0x24460 */ s16  unk_24460[4];
     /* 0x24468 */ u8   unk_24468[4];
@@ -38,7 +38,7 @@ typedef struct {
     /* 0x24474 */ u8   unk_24474[4];
     /* 0x24478 */ u8   unk_24478[4];
     /* 0x2447C */ u8   unk_2447C[4];
-    /* 0x24480 */ s16  unk_24480;
+    /* 0x24480 */ s16  buttonIndex;
     /* 0x24482 */ s16  unk_24482;
     /* 0x24484 */ s16  unk_24484;
     /* 0x24486 */ s16  unk_24486;
@@ -48,9 +48,9 @@ typedef struct {
     /* 0x2448E */ s16  unk_2448E;
     /* 0x24490 */ s16  unk_24490;
     /* 0x24492 */ s16  unk_24492[3];
-    /* 0x24498 */ s16  unk_24498;
+    /* 0x24498 */ s16  actionTimer;
     /* 0x2449A */ s16  unk_2449A[6];
-    /* 0x244A6 */ s16  unk_244A6;
+    /* 0x244A6 */ s16  copyDestFileIndex;
     /* 0x244A8 */ s16  unk_244A8;
     /* 0x244AA */ s16  unk_244AA;
     /* 0x244AC */ s16  unk_244AC;
@@ -61,7 +61,7 @@ typedef struct {
     /* 0x244BC */ s16  unk_244BC[3];
     /* 0x244C2 */ s16  unk_244C2[3];
     /* 0x244C8 */ s16  unk_244C8[3];
-    /* 0x244CE */ s16  unk_244CE[3];
+    /* 0x244CE */ s16  connectorAlpha[3];
     /* 0x244D4 */ s16  unk_244D4[3];
     /* 0x244DA */ s16  unk_244DA[4];
     /* 0x244E2 */ s16  unk_244E2;
